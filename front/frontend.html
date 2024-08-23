@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Assistant Chat</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+        }
+        #chat-window {
+            width: 360px;
+            height: 500px;
+            margin: 20px auto;
+            border-radius: 15px;
+            background-color: #ffffff;
+            border: 1px solid #cccccc;
+            padding: 10px;
+            overflow-y: auto;
+            flex-direction: column;
+            display: flex;
+        }
+        .message {
+            padding: 10px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            width: fit-content;
+            max-width: 80%;
+        }
+        .ai-message {
+            background-color: #e1f5fe;
+                align-self: flex-start; /* Align AI messages to the left */
+                }
+        .user-message {
+            background-color: #ffecb3;
+                align-self: flex-end; /* Align user messages to the right */
+                }
+        #input-area {
+            width: 500px;
+            height: 40px;
+            margin: 20px auto;
+            border-radius: 15px;
+            background-color: #ffffff;
+            border: 1px solid #cccccc;
+            padding: 10px;
+            overflow-y: auto;
+        }
+        #input-field {
+            width: 80%;
+            padding: 10px;
+            border-radius: 10px;
+            border: 1px solid #cccccc;
+        }
+        #send-button {
+            padding: 10px 20px;
+            background-color: #2196f3;
+            color: white;
+            border-radius: 10px;
+            cursor: pointer;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+
+<div id="chat-window">
+    <!-- Chat messages will appear here -->
+</div>
+
+<div id="input-area">
+    <input type="text" id="input-field" placeholder="Type a message...">
+    <button id="send-button">Send</button>
+</div>
+
+<script>
+    document.getElementById('send-button').addEventListener('click', function() {
+        const userMessage = document.getElementById('input-field').value;
+        if (userMessage.trim()) {
+            addMessageToChat(userMessage, 'user-message');
+            fetch('/send-message', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ message: userMessage }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                addMessageToChat(data.response, 'ai-message');
+            });
+        }
+    });
+
+    function addMessageToChat(message, className) {
+        const messageDiv = document.createElement('div');
+        messageDiv.className = 'message ' + className;
+        messageDiv.textContent = message;
+        document.getElementById('chat-window').appendChild(messageDiv);
+        document.getElementById('input-field').value = '';
+    }
+</script>
+
+</body>
+</html>
