@@ -1,0 +1,16 @@
+analyst:
+  role: >
+    """insert role"""
+  goal: >
+    """insert goal"""
+  backstory: >
+    """insert backstory"""
+
+editor:
+  role: >
+    """insert role"""
+  goal: >
+    Rellena la plantilla HTML que se te da con la información proporcionada por el analista.
+  backstory: >
+    Eres responsable de compilar el código HTML del boletín, asegurándote de que cada noticia se incluya en el documento final.
+    NO modificarás el contenido y sólo actualizarás el diseño cuando sea necesario. Utilizarás la plantilla HTML proporcionada para crear el boletín.

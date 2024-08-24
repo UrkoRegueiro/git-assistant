@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Laissez faire, laissez passer - Newsletter semanal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="utils/front/styles.css">
+
+</head>
+<body>
+    <div class="content-wrapper">
+        <header>
+            <div class="container">
+                <h1>Laissez faire, laissez passer</h1>
+                <h2>Newsletter semanal</h2>
+            </div>
+        </header>
+        <main class="main_container">
+            <ul class="news-list">
+                <li class="news-item">
+                    <h3 class="news-title">Título de la noticia</h3>
+                    <p class="news-text">Texto de la noticia.</p>
+                    <div class="news-meta">
+                        <span class="date">25 de Junio de 2024</span>
+                        <span class="source">Fuente: <a href="https://www.example.com">Link 1</a></span>
+                    </div>
+                </li>
+                <!-- ADD ALL THE OTHER NEWS ITEMS HERE USING THE SAME FORMAT AS THE EXAMPLE ABOVE -->
+            </ul>
+        </main>
+        <footer class="container">
+            <p class="goodbye">¡Hasta la siguiente edición!</p>
+        </footer>
+    </div>
+
+    <!-- Botón para desplegar/ocultar el chat -->
+    <button id="toggle-chat-btn">💬</button>
+
+    <!-- Contenedor para el chat -->
+    <div id="chat-container">
+        <div id="chat-window">
+            <!-- Los mensajes del chat aparecerán aquí -->
+            <div class="message ai-message">Bienvenido, ¿en qué puedo ayudarte?</div>
+        </div>
+
+        <div id="input-area">
+            <input type="text" id="input-field" placeholder="Escribe un mensaje...">
+            <button id="send-button">Enviar</button>
+        </div>
+    </div>
+
+    <script src="utils/back/functions.js" defer></script>
+
+</body>
+</html>

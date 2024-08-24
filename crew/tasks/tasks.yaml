@@ -1,0 +1,48 @@
+analyst_task:
+  description: >
+    Obtienes información sobre videos de youtube.
+    Con esta información, elabora una lista de los vídeos que haya encontrado.
+    UTILIZA UNA SOLA VEZ LA HERRAMIENTA PROPORCIONADA, NO NECESITA ENTRADA.
+    
+    Haz lo siguiente con la información obtenida tras la herramienta utilizada:
+        - Reescribe el título del vídeo para hacerlo más atractivo e interesante para los lectores del boletín.
+        - Incluye el autor del vídeo.
+        - Incluye la fecha del vídeo en este formato «Día del mes del año».
+        - Incluye la URL del vídeo.
+
+  expected_output: >
+    Un documento markdown con la información completa obtenida sobre los vídeos.
+    
+    Cada uno debe contener:
+    - Titulo:
+    - Autor:
+    - Fecha:
+    - Fuente: [URL of the video]
+
+    Here is an example of a document that you are expected to produce:
+    <EJEMPLO>
+    
+      - **Titulo:** La deuda pública española es mucho más alta de lo que se cree
+        **Autor:**  Juan Ramón Rallo
+        **Fecha:** 25 de Julio de 2024
+        **Fuente:** [Ver noticia completa](https://www.youtube.com/watch?v=Qs6BdBHiLwM&ab_channel=JuanRam%C3%B3nRallo)
+
+        [... más noticias ...]
+
+    </EJEMPLO>
+
+editor_task:
+  description: >
+    Rellena la siguiente plantilla HTML con exactamente la misma información que se le da.
+
+        Sigue estas reglas:
+        - No trunque la información ni cambie el orden de los elementos. 
+        - No modifique el contenido de las noticias.
+        - No añada información adicional al boletín.
+        - Añada TODOS los artículos de noticias proporcionados al boletín. Aunque la plantilla sólo muestre un artículo de noticias, deberá incluir todos los artículos de noticias proporcionados como contexto utilizando el formato proporcionado en la plantilla.
+
+        {html_template}
+
+  expected_output: >
+    Devuelve SOLO el contenido de la plantilla HTML, sin comillas triples como '```', '```html' o cualquier otro texto.
+    Este output se guardará como un archivo HTML.
