@@ -5,6 +5,7 @@
     <title>Laissez faire, laissez passer - Newsletter semanal</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="utils/front/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
 </head>
 <body>
@@ -19,9 +20,12 @@
             <ul class="news-list">
                 <li class="news-item">
                     <h3 class="news-title">Título de la noticia</h3>
-                    <p class="news-text">Texto de la noticia.</p>
+                    <img src="https://www.example.com/hqdefault.jpg" alt="Imagen noticia" class="news-image">
                     <div class="news-meta">
-                        <span class="date">25 de Junio de 2024</span>
+                        <div class="author-date">
+                            <span class="author">Autor de la noticia</span>
+                            <span class="date">25 de Junio de 2024</span>
+                        </div>
                         <span class="source">Fuente: <a href="https://www.example.com">Link 1</a></span>
                     </div>
                 </li>
@@ -33,16 +37,13 @@
         </footer>
     </div>
 
-    <!-- Botón para desplegar/ocultar el chat -->
     <button id="toggle-chat-btn">💬</button>
 
-    <!-- Contenedor para el chat -->
     <div id="chat-container">
+        <button id="toggle-button"><i class="fa-solid fa-up-right-and-down-left-from-center"></i></button>
         <div id="chat-window">
-            <!-- Los mensajes del chat aparecerán aquí -->
             <div class="message ai-message">Bienvenido, ¿en qué puedo ayudarte?</div>
         </div>
-
         <div id="input-area">
             <input type="text" id="input-field" placeholder="Escribe un mensaje...">
             <button id="send-button">Enviar</button>

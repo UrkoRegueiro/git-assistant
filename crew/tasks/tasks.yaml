@@ -1,11 +1,12 @@
 analyst_task:
   description: >
-    Obtienes información sobre videos de youtube.
+    Obtener información sobre videos de youtube.
     Con esta información, elabora una lista de los vídeos que haya encontrado.
     UTILIZA UNA SOLA VEZ LA HERRAMIENTA PROPORCIONADA, NO NECESITA ENTRADA.
     
     Haz lo siguiente con la información obtenida tras la herramienta utilizada:
         - Reescribe el título del vídeo para hacerlo más atractivo e interesante para los lectores del boletín.
+        - Incluye la URL de la imagen del vídeo.
         - Incluye el autor del vídeo.
         - Incluye la fecha del vídeo en este formato «Día del mes del año».
         - Incluye la URL del vídeo.
@@ -15,14 +16,16 @@ analyst_task:
     
     Cada uno debe contener:
     - Titulo:
+    - Imagen: [URL de la imagen del video]
     - Autor:
     - Fecha:
-    - Fuente: [URL of the video]
+    - Fuente: [URL del video]
 
-    Here is an example of a document that you are expected to produce:
+    Aqui tienes un ejemplo de un documento que se espera que produzcas:
     <EJEMPLO>
     
       - **Titulo:** La deuda pública española es mucho más alta de lo que se cree
+        **Imagen:**  [Imagen](https://i.ytimg.com/vi/lCLsF_lJBLY/mqdefault.jpg)
         **Autor:**  Juan Ramón Rallo
         **Fecha:** 25 de Julio de 2024
         **Fuente:** [Ver noticia completa](https://www.youtube.com/watch?v=Qs6BdBHiLwM&ab_channel=JuanRam%C3%B3nRallo)

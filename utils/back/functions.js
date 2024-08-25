@@ -50,3 +50,18 @@ function addMessageToChat(message, className) {
         chatWindow.scrollTop = chatWindow.scrollHeight;
     }, 0);
 }
+
+// Funcionalidad de maximización
+document.getElementById('toggle-button').addEventListener('click', function() {
+    const chatContainer = document.getElementById('chat-container');
+
+    // Alternar la clase "maximized" en el contenedor del chat
+    chatContainer.classList.toggle('maximized');
+
+    // Cambiar el ícono según el estado
+    if (chatContainer.classList.contains('maximized')) {
+        this.innerHTML = '<i class="fa-solid fa-down-left-and-up-right-to-center"></i>'; // Ícono para minimizar
+    } else {
+        this.innerHTML = '<i class="fa-solid fa-up-right-and-down-left-from-center"></i>'; // Ícono para maximizar
+    }
+});
