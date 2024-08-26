@@ -7,9 +7,38 @@ from langchain.chains import LLMChain
 from langchain.memory import ConversationBufferWindowMemory
 from langchain_core.prompts import PromptTemplate
 
+from langchain.agents import AgentExecutor, create_tool_calling_agent
+from langchain_core.chat_history import InMemoryChatMessageHistory
+from langchain_core.prompts import ChatPromptTemplate
+from langchain_core.runnables.history import RunnableWithMessageHistory
+from langchain_core.messages import BaseMessage
+from langchain_openai import ChatOpenAI
+
+from functions import GetInformationTool, SummarizeTool
+
 import os
 from dotenv import load_dotenv
 load_dotenv()
+
+#############################################################################################
+class EnhancedInMemoryChatMessageHistory(InMemoryChatMessageHistory):
+    """Enhanced version of InMemoryChatMessageHistory with message limit."""
+
+    max_messages: int = 2  # Set the limit (K) of messages to keep
+
+    def add_message(self, message: BaseMessage) -> None:
+        """Add a message to the store and enforce message limit.
+
+        Args:
+            message: The message to add.
+        """
+        super().add_message(message)  # Call the original method to add the message
+        self.messages = self.messages[-self.max_messages:]  # Keep only the last `max_messages`
+
+class Message(BaseModel):
+    message: str
+#############################################################################################
+
 
 # Cargo API_KEY
 OPENAI_API_KEY = os.getenv('OPENAI_API_KEY')
@@ -22,34 +51,48 @@ app.add_middleware(CORSMiddleware,
                    allow_headers=["*"],  # Permite todos los headers
                    )
 
-class Message(BaseModel):
-    message: str
 
 
-# Defino el llm:
-model = ChatOpenAI(model="gpt-4o-mini", openai_api_key=OPENAI_API_KEY)
+llm = ChatOpenAI(model="gpt-4o-mini", temperature=0, openai_api_key=OPENAI_API_KEY)
 
-# Creamos una cadena con un prompt template y nuestro modelo:
-template = """Eres un asistente útil y amable que ayuda a los usuarios con sus preguntas.
+memory = EnhancedInMemoryChatMessageHistory(session_id="test-session")
 
-{history}
-Human: {human_input}
-Assistant:"""
+prompt = ChatPromptTemplate.from_messages(
+    [
+        ("system", "Eres un asistente de un boletin de noticias semanales. Ayudarás a los lectores en lo que necesiten. Eres un experto en presentar resumenes claros."),
+        # First put the history
+        ("placeholder", "{chat_history}"),
+        # Then the new input
+        ("human", "{input}"),
+        # Finally the scratchpad
+        ("placeholder", "{agent_scratchpad}"),
+    ]
+)
 
-prompt = PromptTemplate(input_variables=["history", "human_input"], template=template)
+tools = [GetInformationTool(), SummarizeTool()]
 
+agent = create_tool_calling_agent(llm, tools, prompt)
 
-assistant_chain = LLMChain(llm=model,
-                           prompt=prompt,
-                           verbose=False,
-                           memory=ConversationBufferWindowMemory(k=4),
-                          )
+agent_executor = AgentExecutor(agent=agent, tools=tools)
+
+agent_with_chat_history = RunnableWithMessageHistory(agent_executor,
+                                                     lambda session_id: memory,
+                                                     input_messages_key="input",
+                                                     history_messages_key="chat_history",
+                                                    )
+
+config = {"configurable": {"session_id": "test-session"}}
+
 
 @app.post("/send-message")
 async def send_message(request: Message):
     user_message = request.message
 
-    ai_message = assistant_chain.predict(human_input= user_message)
+    response = agent_with_chat_history.invoke({"input": user_message},
+                                              config,
+                                              )
+
+    ai_message = response["output"]
 
     return {"response": ai_message}
 

@@ -6,5 +6,6 @@ langchain
 langchain-openai
 langchain_community
 google-api-python-client
+youtube-transcript-api
 crewai
 crewai[tools]

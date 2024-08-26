@@ -75,6 +75,7 @@ header h2 {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 20px;
+    margin-left: -40px;
 }
 
 .news-item {
@@ -246,4 +247,32 @@ footer .goodbye {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+/* Contador noticias */
+/* Inicializar el contador */
+.news-list {
+    counter-reset: news-counter;
+}
+
+.news-item {
+    position: relative;
+    padding-left: 50px; /* Espacio para el número */
+    counter-increment: news-counter; /* Incrementar el contador por cada .news-item */
+}
+
+.news-number::before {
+    content: counter(news-counter); /* Insertar el valor del contador */
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    width: 30px;
+    height: 30px;
+    background-color: #ff5733;
+    color: white;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
 }
