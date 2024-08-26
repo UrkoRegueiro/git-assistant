@@ -41,7 +41,7 @@ function sendMessage() {
 function addMessageToChat(message, className) {
     const messageDiv = document.createElement('div');
     messageDiv.className = 'message ' + className;
-    messageDiv.textContent = message;
+    messageDiv.innerHTML = message;
     const chatWindow = document.getElementById('chat-window');
     chatWindow.appendChild(messageDiv);
     document.getElementById('input-field').value = '';

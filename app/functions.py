@@ -27,7 +27,7 @@ def get_news(number: str) -> dict:
     Returns:
         dict: Un diccionario con el título, autor, fecha y URL de la noticia.
     """
-    int_num = int(number)
+    int_num = int(number) - 1
     newsletter_url = "https://urkoregueiro.github.io/web-assistant/"
     response = requests.get(newsletter_url)
     soup = BeautifulSoup(response.text, 'html.parser')

@@ -59,7 +59,11 @@ memory = EnhancedInMemoryChatMessageHistory(session_id="test-session")
 
 prompt = ChatPromptTemplate.from_messages(
     [
-        ("system", "Eres un asistente de un boletin de noticias semanales. Ayudarás a los lectores en lo que necesiten. Eres un experto en presentar resumenes claros."),
+        ("system", "Eres un asistente de un boletin de noticias semanales."
+                   "Ayudarás a los lectores en lo que necesiten. "
+                   "Eres un experto en presentar resumenes claros."
+                   "Cuando tengas que realizar un resumen devolveras este para que se pueda visualizar en un archivo HTML. Devuelve SOLO el contenido HTML, sin comillas triples como '```', '```html' o cualquier otro texto."
+                   "El resto de respuestas que no sean un resumen NO seran en formato HTML."),
         # First put the history
         ("placeholder", "{chat_history}"),
         # Then the new input
