@@ -276,3 +276,27 @@ footer .goodbye {
     align-items: center;
     border-radius: 50%;
 }
+
+/* Rueda de carga */
+/* Spinner styling */
+.spinner {
+    border: 8px solid rgba(0, 0, 0, 0.1);
+    border-left-color: #ffbb00;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+    margin: 10px auto; /* Centrar en el contenedor */
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Estilo opcional para centrar el spinner dentro del chat-window */
+#loading-spinner {
+    text-align: center;
+    padding: 10px;
+}
