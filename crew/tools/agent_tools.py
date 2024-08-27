@@ -55,7 +55,7 @@ def info_videos(dias=7):
                                    })
         counter += 1
 
-    with open('C:/Users/regue/Desktop/Projects/PROJECTS/git-assistant/utils/back/information.json', 'w') as file:
+    with open('utils/back/information.json', 'w') as file:
         json.dump(results, file)
 
     return results
