@@ -51,7 +51,7 @@ class NewsletterCrew:
         return Task(
             config=self.tasks_config["editor_task"],
             agent=self.editor(),
-            output_file="../index.html",
+            output_file="index.html",
         )
 
     @crew
