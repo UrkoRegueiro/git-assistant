@@ -2,11 +2,6 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 
-from langchain_openai import ChatOpenAI
-from langchain.chains import LLMChain
-from langchain.memory import ConversationBufferWindowMemory
-from langchain_core.prompts import PromptTemplate
-
 from langchain.agents import AgentExecutor, create_tool_calling_agent
 from langchain_core.chat_history import InMemoryChatMessageHistory
 from langchain_core.prompts import ChatPromptTemplate
@@ -24,7 +19,7 @@ load_dotenv()
 class EnhancedInMemoryChatMessageHistory(InMemoryChatMessageHistory):
     """Enhanced version of InMemoryChatMessageHistory with message limit."""
 
-    max_messages: int = 2  # Set the limit (K) of messages to keep
+    max_messages: int = 2
 
     def add_message(self, message: BaseMessage) -> None:
         """Add a message to the store and enforce message limit.
@@ -32,8 +27,8 @@ class EnhancedInMemoryChatMessageHistory(InMemoryChatMessageHistory):
         Args:
             message: The message to add.
         """
-        super().add_message(message)  # Call the original method to add the message
-        self.messages = self.messages[-self.max_messages:]  # Keep only the last `max_messages`
+        super().add_message(message)
+        self.messages = self.messages[-self.max_messages:]
 
 class Message(BaseModel):
     message: str
@@ -46,9 +41,9 @@ OPENAI_API_KEY = os.getenv('OPENAI_API_KEY')
 # Defino API
 app = FastAPI()
 app.add_middleware(CORSMiddleware,
-                   allow_origins=["*"],  # Permite todas las orígenes. Puedes especificar una lista de dominios permitidos.    allow_credentials=True,
-                   allow_methods=["*"],  # Permite todos los métodos (GET, POST, PUT, etc.)
-                   allow_headers=["*"],  # Permite todos los headers
+                   allow_origins=["*"],
+                   allow_methods=["*"], # (GET, POST, PUT, ...)
+                   allow_headers=["*"],
                    )
 
 
@@ -64,11 +59,11 @@ prompt = ChatPromptTemplate.from_messages(
                    "Eres un experto en presentar resumenes claros."
                    "Cuando tengas que realizar un resumen devolveras este para que se pueda visualizar en un archivo HTML. Devuelve SOLO el contenido HTML, sin comillas triples como '```', '```html' o cualquier otro texto."
                    "El resto de respuestas que no sean un resumen NO seran en formato HTML."),
-        # First put the history
+
         ("placeholder", "{chat_history}"),
-        # Then the new input
+
         ("human", "{input}"),
-        # Finally the scratchpad
+
         ("placeholder", "{agent_scratchpad}"),
     ]
 )
