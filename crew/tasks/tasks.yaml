@@ -47,5 +47,5 @@ editor_task:
         {html_template}
 
   expected_output: >
-    Devuelve SOLO el contenido de la plantilla HTML, sin comillas triples como '```', '```html' o cualquier otro texto.
+    Devuelve SOLO el contenido de la plantilla HTML, SIN COMILLAS TRIPLES como '```html', '```' o cualquier otro texto.
     Este output se guardará como un archivo HTML.
